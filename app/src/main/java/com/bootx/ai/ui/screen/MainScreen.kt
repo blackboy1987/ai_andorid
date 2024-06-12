@@ -56,7 +56,7 @@ fun MainScreen(
         "视频",
         "论文",
     )
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
+    var selectedTabIndex by remember { mutableIntStateOf(1) }
     val coroutineScope = rememberCoroutineScope()
     val pageSate = rememberPagerState(
         initialPage = selectedTabIndex,
