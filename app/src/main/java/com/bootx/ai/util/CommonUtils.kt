@@ -195,4 +195,12 @@ object CommonUtils {
         val interval = (now-get.toLong())/1000
         return 60*1-interval
     }
+
+    /**
+     * 校验手机号
+     */
+    fun validatePhone(phoneNumber: String): Boolean {
+        val regex = Regex("^1[3-9]\\d{9}$")
+        return regex.matches(phoneNumber)
+    }
 }
