@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.bootxai"
+    namespace = "com.bootx.ai"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.bootxai"
+        applicationId = "com.bootx.ai"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
