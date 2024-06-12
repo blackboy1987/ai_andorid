@@ -23,7 +23,7 @@ fun NavHostApp() {
         composable(
             Destinations.MainFrame.route,
         ) {
-            ImageScreen(navController)
+            MainScreen(navController)
         }
         composable(
             Destinations.HomeFrame.route,

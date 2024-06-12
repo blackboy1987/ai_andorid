@@ -1,110 +1,101 @@
 package com.bootx.ai.ui.screen
 
-import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.Tab
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.bootx.ai.R
-import com.bootx.ai.ui.navigation.Destinations
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(
     navController: NavController
 ) {
-    val context = LocalContext.current
-    val configuration = LocalConfiguration.current
-    val screenWidthDp = configuration.screenWidthDp
-    val screenHeightDp = configuration.screenHeightDp
-
-    val statusBarHeight = remember { getStatusBarHeight(context) }
-    val menuBarHeight = remember { getMenuBarHeight(context) }
-    val pageState = rememberPagerState(
-        initialPage = 0,
-        pageCount = { 3 },
+    val tabs = listOf(
+        "聊天",
+        "应用",
+        "绘图",
+        "视频",
+        "论文",
+    )
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
+    val coroutineScope = rememberCoroutineScope()
+    val pageSate = rememberPagerState(
+        initialPage = selectedTabIndex,
+        pageCount = {tabs.size}
     )
 
-    /*Box(modifier = Modifier.fillMaxSize()) {
-        Box(modifier = Modifier.fillMaxSize()){
-            Column(modifier = Modifier.fillMaxSize()) {
-                Image(
-                    painter = painterResource(id = R.drawable.bt_up),
-                    contentDescription = null,
-                    modifier = Modifier.width(width = screenWidthDp.dp).height(((screenHeightDp+statusBarHeight)/2).dp),
-                    contentScale = ContentScale.FillBounds
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.bg_down),
-                    contentDescription = null,
-                    modifier = Modifier.width(width = screenWidthDp.dp).height(((screenHeightDp+statusBarHeight+menuBarHeight)/2).dp),
-                    contentScale = ContentScale.FillBounds
-                )
+    LaunchedEffect(pageSate.currentPage) {
+        selectedTabIndex = pageSate.currentPage
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(title = {
+                ScrollableTabRow(
+                    selectedTabIndex = selectedTabIndex,
+                    modifier = Modifier
+                        .wrapContentWidth()
+                        .background(Color.White)
+                        .fillMaxWidth(),
+                    edgePadding = 0.dp,
+                ) {
+                    tabs.forEachIndexed { index, item ->
+                        Tab(
+                            text = {
+                                if (index == selectedTabIndex) {
+                                    Text(text = item, fontWeight = FontWeight.Bold)
+                                } else {
+                                    Text(text = item)
+                                }
+                            },
+                            selectedContentColor = Color(0xff000000),
+                            unselectedContentColor = Color(0xff9ca0ab),
+                            selected = selectedTabIndex == index,
+                            onClick = {
+                                selectedTabIndex = index
+                                coroutineScope.launch {
+                                    pageSate.animateScrollToPage(index)
+                                }
+                            },
+                        )
+                    }
+                }
+            })
+        }
+    ) {
+        HorizontalPager(state = pageSate, modifier = Modifier
+            .padding(it)
+            .fillMaxSize()) { page->
+            when(page){
+                0-> ChatScreen(navController)
+                1-> AppScreen(navController)
+                2-> ImageScreen(navController)
+                3-> VideoScreen(navController)
+                4-> PaperScreen(navController)
             }
         }
-    }*/
-
-    HorizontalPager(state = pageState) {
-        Box(
-            contentAlignment = Alignment.Center, modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    Color(0xff171926),
-                )
-        ) {
-            when (it) {
-                0 -> Image(
-                    painter = painterResource(id = R.drawable.bg_01), contentDescription = ""
-                )
-
-                1 -> Image(
-                    painter = painterResource(id = R.drawable.bg_02), contentDescription = ""
-                )
-
-                2 -> Image(
-                    modifier = Modifier.clickable {
-                        navController.navigate(Destinations.HomeFrame.route)
-                    },
-                    painter = painterResource(id = R.drawable.bg_03), contentDescription = ""
-                )
-            }
-        }
-    }
-}
-
-
-fun getStatusBarHeight(context: Context): Int {
-    val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
-    return if (resourceId > 0) {
-        context.resources.getDimensionPixelSize(resourceId)
-    } else {
-        0
-    }
-}
-
-fun getMenuBarHeight(context: Context): Int {
-    val resourceId = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
-    return if (resourceId > 0) {
-        context.resources.getDimensionPixelSize(resourceId)
-    } else {
-        0
     }
 }

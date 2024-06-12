@@ -29,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.SecondaryScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -49,8 +50,8 @@ import coil.compose.AsyncImage
 import com.bootx.ai.ui.viewmodal.HomeModel
 
 @OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
-    ExperimentalLayoutApi::class
+    ExperimentalMaterial3Api::class,
+    ExperimentalLayoutApi::class, ExperimentalFoundationApi::class
 )
 @Composable
 fun ImageScreen(
@@ -68,268 +69,263 @@ fun ImageScreen(
         "图像画面扩展"
     )
 
-    Scaffold(
-        topBar = {
-            TopAppBar(title = {
-                ScrollableTabRow(
-                    selectedTabIndex = selectedTabIndex,
-                    modifier = Modifier
-                        .wrapContentWidth()
-                        .background(Color.White)
-                        .fillMaxWidth(),
-                    edgePadding = 0.dp,
-                ) {
-                    tabs.forEachIndexed { index, item ->
-                        Tab(
-                            text = {
-                                if (index == selectedTabIndex) {
-                                    Text(text = item, fontWeight = FontWeight.Bold)
-                                } else {
-                                    Text(text = item)
-                                }
-                            },
-                            selectedContentColor = Color(0xff000000),
-                            unselectedContentColor = Color(0xff9ca0ab),
-                            selected = selectedTabIndex == index,
-                            onClick = {
-                                selectedTabIndex = index
-                            },
-                        )
-                    }
-                }
-            })
-        }
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize(),
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(it),
-        ) {
-            item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp, vertical = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row {
-                        Text(text = "请输入提示词")
-                        Icon(imageVector = Icons.Default.Lock, contentDescription = "")
-                    }
-                    Row {
-                        Icon(imageVector = Icons.Default.Home, contentDescription = "")
-                        Text(text = "随机输入")
+        stickyHeader {
+            SecondaryScrollableTabRow(
+                selectedTabIndex = selectedTabIndex,
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .background(Color.White)
+                    .fillMaxWidth(),
+                edgePadding = 0.dp,
+            ) {
+                tabs.forEachIndexed { index, item ->
+                    Tab(
+                        text = {
+                            if (index == selectedTabIndex) {
+                                Text(text = item, fontWeight = FontWeight.Bold)
+                            } else {
+                                Text(text = item)
+                            }
+                        },
+                        selectedContentColor = Color(0xff000000),
+                        unselectedContentColor = Color(0xff9ca0ab),
+                        selected = selectedTabIndex == index,
+                        onClick = {
+                            selectedTabIndex = index
+                        },
+                    )
+                }
+            }
+        }
+
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row {
+                    Text(text = "请输入提示词")
+                    Icon(imageVector = Icons.Default.Lock, contentDescription = "")
+                }
+                Row {
+                    Icon(imageVector = Icons.Default.Home, contentDescription = "")
+                    Text(text = "随机输入")
+                }
+            }
+            BasicTextField(
+                minLines = 12,
+                value = "content",
+                onValueChange = {},
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp)
+                    .border(
+                        BorderStroke(1.dp, Color.Blue), // 设置边框颜色
+                        shape = MaterialTheme.shapes.small // 使用默认形状
+                    )
+                    .padding(8.dp), // 内边距
+                decorationBox = { innerTextField ->
+                    Box(modifier = Modifier.padding(8.dp)) {
+                        innerTextField()
                     }
                 }
-                BasicTextField(
-                    minLines = 12,
-                    value = "content",
-                    onValueChange = {},
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp)
-                        .border(
-                            BorderStroke(1.dp, Color.Blue), // 设置边框颜色
-                            shape = MaterialTheme.shapes.small // 使用默认形状
+            )
+        }
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "图片风格")
+            }
+            FlowRow(
+                maxItemsInEachRow = 3,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+            ) {
+                repeat(20) { index ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth(0.33f)
+                            .padding(8.dp)
+                    ) {
+                        AsyncImage(
+                            model = "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/yangguangshaonian.png",
+                            contentDescription = ""
                         )
-                        .padding(8.dp), // 内边距
-                    decorationBox = { innerTextField ->
-                        Box(modifier = Modifier.padding(8.dp)) {
-                            innerTextField()
+                        Text(
+                            text = "阳光少年",
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+            }
+        }
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "图片比例")
+            }
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+            ) {
+                repeat(3) { index ->
+                    Column(modifier = Modifier.width(100.dp)) {
+                        if(index==0){
+                            Box(
+                                contentAlignment = Alignment.Center,
+                                modifier = Modifier
+                                    .padding(end = 16.dp)
+                                    .size(80.dp)
+                                    .background(Color.Gray)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .width(64.dp)
+                                        .height(64.dp)
+                                        .background(Color.Red)
+                                )
+                            }
+                            Text(
+                                text = "1:1",
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                            )
+                        }else if(index==1){
+                            Box(
+                                contentAlignment = Alignment.Center,
+                                modifier = Modifier
+                                    .padding(end = 16.dp)
+                                    .size(80.dp)
+                                    .background(Color.Gray)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .width(64.dp)
+                                        .height(36.dp)
+                                        .background(Color.Red)
+                                )
+                            }
+                            Text(
+                                text = "16:9",
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                            )
+                        }else if(index==2){
+                            Box(
+                                contentAlignment = Alignment.Center,
+                                modifier = Modifier
+                                    .padding(end = 16.dp)
+                                    .size(80.dp)
+                                    .background(Color.Gray)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .width(36.dp)
+                                        .height(64.dp)
+                                        .background(Color.Red)
+                                )
+                            }
+                            Text(
+                                text = "9:16",
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                            )
                         }
                     }
-                )
-            }
-            item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp, vertical = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(text = "图片风格")
                 }
-                FlowRow(
-                    maxItemsInEachRow = 3,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                ) {
-                    repeat(20) { index ->
-                        Card(
+            }
+        }
+        item{
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "模型")
+            }
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+            ) {
+                repeat(3) { index ->
+                    Column(modifier = Modifier.width(100.dp)) {
+                        Box(
+                            contentAlignment = Alignment.Center,
                             modifier = Modifier
-                                .fillMaxWidth(0.33f)
-                                .padding(8.dp)
+                                .padding(end = 16.dp)
+                                .size(80.dp)
+                                .background(Color.Gray)
                         ) {
-                            AsyncImage(
-                                model = "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/yangguangshaonian.png",
-                                contentDescription = ""
-                            )
-                            Text(
-                                text = "阳光少年",
-                                modifier = Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
-                }
-            }
-            item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp, vertical = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(text = "图片比例")
-                }
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                ) {
-                    repeat(3) { index ->
-                        Column(modifier = Modifier.width(100.dp)) {
-                            if(index==0){
-                                Box(
-                                    contentAlignment = Alignment.Center,
-                                    modifier = Modifier
-                                        .padding(end = 16.dp)
-                                        .size(80.dp)
-                                        .background(Color.Gray)
-                                ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .width(64.dp)
-                                            .height(64.dp)
-                                            .background(Color.Red)
-                                    )
-                                }
-                                Text(
-                                    text = "1:1",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    textAlign = TextAlign.Center,
-                                )
-                            }else if(index==1){
-                                Box(
-                                    contentAlignment = Alignment.Center,
-                                    modifier = Modifier
-                                        .padding(end = 16.dp)
-                                        .size(80.dp)
-                                        .background(Color.Gray)
-                                ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .width(64.dp)
-                                            .height(36.dp)
-                                            .background(Color.Red)
-                                    )
-                                }
-                                Text(
-                                    text = "16:9",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    textAlign = TextAlign.Center,
-                                )
-                            }else if(index==2){
-                                Box(
-                                    contentAlignment = Alignment.Center,
-                                    modifier = Modifier
-                                        .padding(end = 16.dp)
-                                        .size(80.dp)
-                                        .background(Color.Gray)
-                                ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .width(36.dp)
-                                            .height(64.dp)
-                                            .background(Color.Red)
-                                    )
-                                }
-                                Text(
-                                    text = "9:16",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    textAlign = TextAlign.Center,
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-            item{
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp, vertical = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(text = "模型")
-                }
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                ) {
-                    repeat(3) { index ->
-                        Column(modifier = Modifier.width(100.dp)) {
                             Box(
-                                contentAlignment = Alignment.Center,
                                 modifier = Modifier
-                                    .padding(end = 16.dp)
-                                    .size(80.dp)
-                                    .background(Color.Gray)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .width(64.dp)
-                                        .height(64.dp)
-                                        .background(Color.Red)
-                                )
-                            }
-                            Text(
-                                text = "1:1",
-                                modifier = Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Center,
+                                    .width(64.dp)
+                                    .height(64.dp)
+                                    .background(Color.Red)
                             )
                         }
+                        Text(
+                            text = "1:1",
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                        )
                     }
                 }
             }
-            item{
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp, vertical = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(text = "模型")
-                }
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                ) {
-                    repeat(3) { index ->
-                        Column(modifier = Modifier.width(100.dp)) {
+        }
+        item{
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "模型")
+            }
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+            ) {
+                repeat(3) { index ->
+                    Column(modifier = Modifier.width(100.dp)) {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier
+                                .padding(end = 16.dp)
+                                .size(80.dp)
+                                .background(Color.Gray)
+                        ) {
                             Box(
-                                contentAlignment = Alignment.Center,
                                 modifier = Modifier
-                                    .padding(end = 16.dp)
-                                    .size(80.dp)
-                                    .background(Color.Gray)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .width(64.dp)
-                                        .height(64.dp)
-                                        .background(Color.Red)
-                                )
-                            }
-                            Text(
-                                text = "1:1",
-                                modifier = Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Center,
+                                    .width(64.dp)
+                                    .height(64.dp)
+                                    .background(Color.Red)
                             )
                         }
+                        Text(
+                            text = "1:1",
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                        )
                     }
                 }
             }
