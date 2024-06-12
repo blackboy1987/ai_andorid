@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class HomeModel : ViewModel() {
 
-    private val sseClient = SSEClient("http://172.16.13.94:9902/api/message?content=%E4%BD%A0%E6%98%AF%E8%B0%81")
+    private val sseClient = SSEClient("http://172.16.13.94:9902/api/message")
     private val _messages = MutableStateFlow<List<String>>(emptyList())
     val messages = _messages.asStateFlow()
 
@@ -21,8 +21,14 @@ class HomeModel : ViewModel() {
                 _messages.value += message
             }
         }
-        sseClient.connect()
     }
+
+    fun connect(content: String) {
+        val parameters = mutableMapOf<String,String>()
+        parameters["content"] = content
+        sseClient.connect(parameters)
+    }
+
 
     public override fun onCleared() {
         super.onCleared()
