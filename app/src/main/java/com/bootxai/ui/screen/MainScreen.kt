@@ -52,7 +52,7 @@ fun MainScreen() {
                 Image(
                     painter = painterResource(id = R.drawable.bt_up),
                     contentDescription = null,
-                    modifier = Modifier.width(width = screenWidthDp.dp).height(((screenHeightDp+statusBarHeight+menuBarHeight)/2).dp),
+                    modifier = Modifier.width(width = screenWidthDp.dp).height(((screenHeightDp+statusBarHeight)/2).dp),
                     contentScale = ContentScale.FillBounds
                 )
                 Image(
