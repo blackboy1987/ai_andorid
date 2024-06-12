@@ -1,0 +1,90 @@
+{
+  "success": true,
+  "errorCode": "0",
+  "data": {
+    "styleList": [
+      {
+        "code": "imageVariation_1",
+        "name": "imageVariation_1",
+        "pic": "https://img.alicdn.com/imgextra/i3/O1CN01OuKgq51qSlEhIHu97_!!6000000005495-2-tps-132-132.png",
+        "realPics": [
+          "https://wanx.alicdn.com/style/imageVariation/imageVariation_1.png?x-oss-process=image/resize,w_500/format,webp"
+        ],
+        "styleType": "image_variation",
+        "orderNumber": 0
+      },
+      {
+        "code": "imageVariation_2",
+        "name": "imageVariation_2",
+        "pic": "https://img.alicdn.com/imgextra/i4/O1CN01xOKDDj1HqZH0VIuBM_!!6000000000809-2-tps-132-132.png",
+        "realPics": [
+          "https://wanx.alicdn.com/style/imageVariation/imageVariation_2.png?x-oss-process=image/resize,w_500/format,webp"
+        ],
+        "styleType": "image_variation",
+        "orderNumber": 0
+      },
+      {
+        "code": "imageVariation_3",
+        "name": "imageVariation_3",
+        "pic": "https://img.alicdn.com/imgextra/i2/O1CN01bB1Li71OLboDgEs0p_!!6000000001689-2-tps-132-132.png",
+        "realPics": [
+          "https://wanx.alicdn.com/style/imageVariation/imageVariation_3.png?x-oss-process=image/resize,w_500/format,webp"
+        ],
+        "styleType": "image_variation",
+        "orderNumber": 0
+      },
+      {
+        "code": "imageVariation_4",
+        "name": "imageVariation_4",
+        "pic": "https://img.alicdn.com/imgextra/i3/O1CN01b9VrSm1uX7T38kwJy_!!6000000006046-2-tps-132-132.png",
+        "realPics": [
+          "https://wanx.alicdn.com/style/imageVariation/imageVariation_4.png?x-oss-process=image/resize,w_500/format,webp"
+        ],
+        "styleType": "image_variation",
+        "orderNumber": 0
+      },
+      {
+        "code": "imageVariation_5",
+        "name": "imageVariation_5",
+        "pic": "https://img.alicdn.com/imgextra/i1/O1CN01l6ZVZa1N2XhsbJDnX_!!6000000001512-2-tps-132-132.png",
+        "realPics": [
+          "https://wanx.alicdn.com/style/imageVariation/imageVariation_5.png?x-oss-process=image/resize,w_500/format,webp"
+        ],
+        "styleType": "image_variation",
+        "orderNumber": 0
+      },
+      {
+        "code": "imageVariation_6",
+        "name": "imageVariation_6",
+        "pic": "https://img.alicdn.com/imgextra/i1/O1CN01NdXMiR1IdZeN4ohGA_!!6000000000916-2-tps-132-132.png",
+        "realPics": [
+          "https://wanx.alicdn.com/style/imageVariation/imageVariation_6.png?x-oss-process=image/resize,w_500/format,webp"
+        ],
+        "styleType": "image_variation",
+        "orderNumber": 0
+      },
+      {
+        "code": "imageVariation_7",
+        "name": "imageVariation_7",
+        "pic": "https://img.alicdn.com/imgextra/i1/O1CN01uuy0sK1nW1CqWv9un_!!6000000005096-2-tps-132-132.png",
+        "realPics": [
+          "https://wanx.alicdn.com/style/imageVariation/imageVariation_7.png?x-oss-process=image/resize,w_500/format,webp"
+        ],
+        "styleType": "image_variation",
+        "orderNumber": 0
+      },
+      {
+        "code": "imageVariation_8",
+        "name": "imageVariation_8",
+        "pic": "https://img.alicdn.com/imgextra/i1/O1CN01TXelYd1XLuc7e5NNU_!!6000000002908-2-tps-132-132.png",
+        "realPics": [
+          "https://wanx.alicdn.com/style/imageVariation/imageVariation_8.png?x-oss-process=image/resize,w_500/format,webp"
+        ],
+        "styleType": "image_variation",
+        "orderNumber": 0
+      }
+    ],
+    "styleCatalogDTOList": []
+  },
+  "failed": false
+}

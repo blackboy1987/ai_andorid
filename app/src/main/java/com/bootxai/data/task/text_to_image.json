@@ -1,0 +1,45 @@
+{
+  "success": true,
+  "errorCode": "0",
+  "data": {
+    "tags": [
+      {
+        "label": "语义理解有误",
+        "value": "01"
+      },
+      {
+        "label": "构图差",
+        "value": "02"
+      },
+      {
+        "label": "造型不佳",
+        "value": "05"
+      },
+      {
+        "label": "配色不和谐",
+        "value": "04"
+      },
+      {
+        "label": "光影细节不足",
+        "value": "03"
+      },
+      {
+        "label": "五官扭曲",
+        "value": "06"
+      },
+      {
+        "label": "肢体异常",
+        "value": "07"
+      },
+      {
+        "label": "姿态扭曲",
+        "value": "08"
+      },
+      {
+        "label": "人脸细节缺失",
+        "value": "09"
+      }
+    ]
+  },
+  "failed": false
+}

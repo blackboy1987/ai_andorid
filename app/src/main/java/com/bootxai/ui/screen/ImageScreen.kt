@@ -255,6 +255,84 @@ fun ImageScreen(
                     }
                 }
             }
+            item{
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = "模型")
+                }
+                FlowRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                ) {
+                    repeat(3) { index ->
+                        Column(modifier = Modifier.width(100.dp)) {
+                            Box(
+                                contentAlignment = Alignment.Center,
+                                modifier = Modifier
+                                    .padding(end = 16.dp)
+                                    .size(80.dp)
+                                    .background(Color.Gray)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .width(64.dp)
+                                        .height(64.dp)
+                                        .background(Color.Red)
+                                )
+                            }
+                            Text(
+                                text = "1:1",
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                            )
+                        }
+                    }
+                }
+            }
+            item{
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = "模型")
+                }
+                FlowRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                ) {
+                    repeat(3) { index ->
+                        Column(modifier = Modifier.width(100.dp)) {
+                            Box(
+                                contentAlignment = Alignment.Center,
+                                modifier = Modifier
+                                    .padding(end = 16.dp)
+                                    .size(80.dp)
+                                    .background(Color.Gray)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .width(64.dp)
+                                        .height(64.dp)
+                                        .background(Color.Red)
+                                )
+                            }
+                            Text(
+                                text = "1:1",
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }

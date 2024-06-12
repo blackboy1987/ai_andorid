@@ -1,0 +1,508 @@
+{
+  "success": true,
+  "errorCode": "0",
+  "data": [
+    {
+      "modelId": "1",
+      "modelName": "复古漫画",
+      "description": "复古漫画",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/fugu.png",
+      "category": "style",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "retro anime style"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "一个戴着金色王冠和粉色连衣裙的公主，看着一只可爱的卡通黑猫，凝视着对方，站在清澈的森林河水中，阳光明媚，明亮的色调",
+        "一个温柔的女孩，黑色长发",
+        "二次元男孩黑色碎发，黄色上衣，大眼睛，笑脸",
+        "戴珍珠项链女孩，抱着猫，精致妆容",
+        "复古风女孩子，复古珠宝，黑色短发，蓝色眼睛，蝴蝶结，半身人像，粉色的嘴唇，露肩上衣，简单的背景"
+      ],
+      "gmtCreate": "2024-05-22 17:21:01"
+    },
+    {
+      "modelId": "2",
+      "modelName": "3D卡通",
+      "description": "3D卡通",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/3Dcartoon.png",
+      "category": "style",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "3d animation, cartoon"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "戴珍珠项链女孩，抱着一只黄色的猫",
+        "一个小男孩，在草地上奔跑",
+        "可爱小公主，头上戴着王冠，穿着白色公主裙，身旁有一只可爱的卡通小兔子，童话森林，阳光明媚",
+        "穿着绿色外衣的女孩，微笑，背景是蓝天"
+      ],
+      "gmtCreate": "2024-05-22 17:35:04"
+    },
+    {
+      "modelId": "4",
+      "modelName": "古风人像",
+      "description": "古风人像",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/guofeng.png",
+      "category": "style",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "ink wash painting, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "英俊男性，黑色长发，黑色眼睛，古风，青绿色汉服，苍绿色外袍，云雾，白云，云海，日光照耀着周围环境，单人，半身像",
+        "可爱女孩，淡绿色汉服，精致头饰，欢快跳跃，实拍高清，远景，全身",
+        "中国古代男性，背景是竹林",
+        "古风美女，七彩羽衣，轮廓光线，大眼睛，优雅武侠风，飘逸潇洒",
+        "古风美男，花瓣飞舞，骑着白马，威武霸气，意气风发，黑色高马尾，银色链子，一袭红衣，精致的眉眼带笑"
+      ],
+      "gmtCreate": "2024-05-22 17:35:05"
+    },
+    {
+      "modelId": "5",
+      "modelName": "黏土世界",
+      "description": "黏土世界",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/niantu.png",
+      "category": "style",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "claymatione"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "一个小男孩，在草地上奔跑",
+        "穿着绿色外衣的女孩，微笑，背景是蓝天",
+        "戴珍珠项链女孩，抱着一只黄色的猫",
+        "一个男人开着敞篷汽车，行驶在道路上，两边是绿树",
+        "可爱小公主，头上戴着王冠，穿着白色公主裙，身旁有一只可爱的卡通小兔子，童话森林，阳光明媚"
+      ],
+      "gmtCreate": "2024-05-22 17:35:05"
+    },
+    {
+      "modelId": "8",
+      "modelName": "莫奈花园",
+      "description": "莫奈花园",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/monai.png",
+      "category": "style",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "claude mon, impressionist paintinget"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "一个漂亮的蓝色水池，里面盛开着莲花",
+        "一条宽敞的道路，旁边有一栋房子，远处是树林",
+        "海边的码头，停靠着几条帆船",
+        "秋天的森林，金黄色的落叶",
+        "一片绵延的森林，远处是连绵的山峰"
+      ],
+      "gmtCreate": "2024-05-22 17:35:05"
+    },
+    {
+      "modelId": "12",
+      "modelName": "白领御姐",
+      "description": "白领御姐",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/bailingyujie.png",
+      "category": "profile",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainFiles": "1,2,3,4,5,6",
+      "trainParams": {
+        "promptPrefix": "1girl, yujie"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "一个职场女性，穿着职业连衣裙，背景是办公室",
+        "一个女人穿着高领毛衣，戴着黑色宽檐帽子，明星艺术团体风格，在舞台上",
+        "动漫女孩，银色头发，漂亮的五官，背景是会议室",
+        "长卷发女孩，棕色头发，复古衬衫，复古风格，背景是报纸组成的墙，高细节",
+        "一个女孩，白色的长发，明亮的大眼睛，凉爽的感觉，复古的吊带，复古的风格，低饱和度的颜色"
+      ],
+      "gmtCreate": "2024-05-22 17:35:06"
+    },
+    {
+      "modelId": "11",
+      "modelName": "青春少女",
+      "description": "青春少女",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/qingchunshaonv.png",
+      "category": "profile",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "qingcun,1girl,anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "漂亮女孩，穿着粉色连衣裙，背景是公园",
+        "二次元女生，凌乱卷发，五官精致，坐在咖啡厅里",
+        "少女，棕色大眼睛，黑发，可爱，蔷薇花",
+        "美少女，大眼睛，栗色长卷发，白皙皮肤，黑色连衣裙",
+        "一个穿着蓝色服装的女孩，头戴白色玫瑰，宝石般的眼睛，坐在教室里"
+      ],
+      "gmtCreate": "2024-05-22 17:35:06"
+    },
+    {
+      "modelId": "10",
+      "modelName": "童年绘本",
+      "description": "童年绘本",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/huiben.png",
+      "category": "style",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "children's book illustration style, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "一个小男孩，在草地上奔跑",
+        "可爱小公主，头上戴着王冠，穿着白色公主裙，身旁有一只可爱的卡通小兔子，童话森林，阳光明媚",
+        "西瓜做成的小屋，小屋下有一个小女孩，可爱童话，手绘画风",
+        "粉红渐变色的云朵和花园庭院，发光的蝴蝶，夜晚的繁星，充满想象力的童话绘本",
+        "一个骑马的男人在一座桥上，桥下有中世纪的建筑"
+      ],
+      "gmtCreate": "2024-05-22 17:35:06"
+    },
+    {
+      "modelId": "13",
+      "modelName": "阳光少年",
+      "description": "阳光少年",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/yangguangshaonian.png",
+      "category": "profile",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainFiles": "1,2,3",
+      "trainParams": {
+        "promptPrefix": "yangguang, 1man, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "青春男生，卷发，穿着棒球衫，背景是运动场",
+        "可爱男生，栗色卷发，抱着一只小狗，微笑表情，穿着简单的T恤，背景是公园",
+        "微笑的年轻男孩，卷发，穿着灰色T恤，背景是户外花园",
+        "一个微笑的男生，黑色卷发，抱着一只可爱小狗，背景是街道",
+        "高中男生，灰色卷发，穿着T恤，温暖的阳光光线，背景是户外公园"
+      ],
+      "gmtCreate": "2024-05-22 17:35:07"
+    },
+    {
+      "modelId": "14",
+      "modelName": "霸道总裁",
+      "description": "霸道总裁",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/badaozongcai.jpg",
+      "category": "profile",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "mengchong, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "黑色短发，穿着西装，背景是高级办公室，优雅高级",
+        "一个穿着西服套装的男人，站在办公室里",
+        "一个男人，金色短发，穿着白衬衫和马甲，背景是书柜",
+        "一个男人，戴着金丝眼镜，穿着西服套装，面带微笑的在室内的窗户前",
+        "穿着白衬衫的男人，身材挺括，站在窗前，窗外是城市景观"
+      ],
+      "gmtCreate": "2024-05-22 17:35:07"
+    },
+    {
+      "modelId": "15",
+      "modelName": "萌宠宝贝",
+      "description": "萌宠宝贝",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/mengchongbaobei.png",
+      "category": "profile",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "mengchong, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "一只可爱白色小狗，棕色耳朵，毛绒绒，蹲在房间地板上",
+        "一只可爱的棕色小猫，毛绒绒，微笑，甩着尾巴",
+        "一只可爱的白色兔子，毛绒绒，微笑、甩着尾巴",
+        "一只可爱的小狗，毛绒绒，微笑，甩着尾巴",
+        "一只蹲坐着的小狗，黄白拼色，毛绒绒"
+      ],
+      "gmtCreate": "2024-05-22 17:35:07"
+    },
+    {
+      "modelId": "16",
+      "modelName": "邻家姐姐",
+      "description": "邻家姐姐",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/linjiajiejie.png",
+      "category": "profile",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "zhixin, 1girl, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "温柔的女生，穿着高领深灰色毛衣，微笑，站在房间里",
+        "黑色波浪卷发女生，穿着高领毛衣，性感的身材，背景是温暖的起居室",
+        "微笑的女生，清纯的面容，穿着显身材的吊带裙，背景是户外的公园",
+        "黑色卷发女生，穿着高领毛衣，身材姣好，背景是绿色植物",
+        "栗色长发女生，穿着吊带裙子，微笑的表情，精致妆容，背景是公园"
+      ],
+      "gmtCreate": "2024-05-22 17:35:07"
+    },
+    {
+      "modelId": "17",
+      "modelName": "森林精灵",
+      "description": "森林精灵",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/senlinjingling.png",
+      "category": "profile",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "jingling, realistic anime style, elf"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "高雅的精灵，高冷表情，在神秘的森林里",
+        "女性精灵，银白色的长发，长的尖耳朵，穿着白色的长袍，背景是夜晚闪着微光的森林",
+        "一位精灵，严肃的表情，长长的尖耳朵，穿着长袍，背景是神圣的祭坛",
+        "优雅的精灵，男性，银白色的长发，穿着华丽的长袍",
+        "一位神秘的精灵，优雅站立，穿着华丽的服装"
+      ],
+      "gmtCreate": "2024-05-22 17:35:08"
+    },
+    {
+      "modelId": "18",
+      "modelName": "傲娇萌妹",
+      "description": "傲娇萌妹",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/aojiaomengmei.png",
+      "category": "profile",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "aojiao, 1girl, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "傲娇少女，橘色头发，黑色裙子，坐在咖啡厅里",
+        "栗色长发女孩，傲娇表情，坐在咖啡厅里",
+        "灰色长发女孩，冷漠，精致妆容，坐在电竞椅上",
+        "黑色长发女孩，戴着蝴蝶结，坐在咖啡厅里",
+        "栗色长发女孩，戴着眼镜，坐在办公室里，背景是一面墙的书柜"
+      ],
+      "gmtCreate": "2024-05-22 17:35:08"
+    },
+    {
+      "modelId": "19",
+      "modelName": "帅气动物",
+      "description": "帅气动物",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/shuaiqidongwu.png",
+      "category": "profile",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "furry, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "帅气的雄性山羊，弯曲的犄角，穿着西服套装，站在房间里",
+        "雄性狮子，阳光自信的笑容，褐色的毛发",
+        "雌性山羊，有卷曲的长角，温柔，穿着风衣",
+        "雌性兔子，白色的长耳朵，戴着眼镜，背景是咖啡厅",
+        "灰色老鹰，穿着白色大褂，背景是实验室"
+      ],
+      "gmtCreate": "2024-05-22 17:35:08"
+    },
+    {
+      "modelId": "20",
+      "modelName": "高冷学长",
+      "description": "高冷学长",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/gaolengxuezhang.png",
+      "category": "profile",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "xueba, 1man, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "高中男生，戴眼镜，穿着白色衬衫，在教室里",
+        "年轻的男生，阳光帅气，表情冷漠，穿着白衬衫打着领带",
+        "高中男生，黑色头发，戴着眼镜，穿着校服白衬衫，手拿一本书，背景是教室",
+        "阳光男生，身穿校园制服，背景是教室",
+        "深灰色头发的高中男生，单肩背着书包，表情冷淡，背景是校园"
+      ],
+      "gmtCreate": "2024-05-22 17:35:09"
+    },
+    {
+      "modelId": "21",
+      "modelName": "机器宠物",
+      "description": "机器宠物",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/jiqichongwu.png",
+      "category": "profile",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "jiqichongwu, cute white robot, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "可爱的白色机器人，大大的眼睛，在地板上",
+        "圆润的白色机器人，坐在地上，背景是温暖的起居室",
+        "白色机器人，可爱圆润，大大的眼睛",
+        "可爱的机器人，圆形没有四肢，在办公室的书桌上",
+        "白色机器人，圆润外形，坐在草地上"
+      ],
+      "gmtCreate": "2024-05-22 17:35:09"
+    },
+    {
+      "modelId": "3",
+      "modelName": "厚涂原画",
+      "description": "厚涂原画",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/houtu.jpg",
+      "category": "style",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "impasto, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "一个穿着连衣裙的女人，坐在咖啡厅里，微笑",
+        "英俊男性，黑色长发，黑色眼睛，青绿色风衣，背后是公园，日光照耀着周围环境，单人，半身像",
+        "戴珍珠项链女孩，抱着一只黄色的猫",
+        "穿着绿色外衣的女孩，微笑，背景是蓝天",
+        "一个男人坐在汽车驾驶室，背景是城市街道，特写镜头"
+      ],
+      "gmtCreate": "2024-05-28 10:15:37"
+    },
+    {
+      "modelId": "6",
+      "modelName": "简笔画",
+      "description": "简笔画",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/jianbihua.png",
+      "category": "style",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "doodle art, cartoon"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "卖甜甜圈的车，街道，彩色，工作服，店长，制作甜甜圈",
+        "带墨镜的小猫，正在走来，灰色花纹猫，狸花猫",
+        "坐在沙发上的居家男孩，打游戏，游戏手柄，薯片，可乐，懒人沙发，开心",
+        "花店，精致的窗户，正面，漂亮的木质门",
+        "滑板，男孩，鸭舌帽，卫衣，卷发，正在玩滑板"
+      ],
+      "gmtCreate": "2024-05-28 10:21:09"
+    },
+    {
+      "modelId": "7",
+      "modelName": "治愈",
+      "description": "治愈",
+      "cover": "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/zhiyu.png",
+      "category": "style",
+      "userId": "0",
+      "source": "official",
+      "scope": "public",
+      "platform": "web",
+      "status": 2,
+      "trainParams": {
+        "promptPrefix": "xhc, anime"
+      },
+      "trainModel": "wanx-finetune",
+      "trainType": "lora",
+      "recommendPrompt": [
+        "草地，蓝天背景，笑容，打招呼，衬衫外套，中午阳光，光晕，元气少女",
+        "一对年轻的情侣在空中飞翔，在城市上空跳舞，极致细节，梦幻，无人机视野，16毫米视野",
+        "星空，烟火，海边，风景",
+        "男孩和女孩奔跑，明亮的灯光，与蓝天，插图，云朵，彩虹，天际线，电线杆",
+        "街道，居民楼，小猫，樱花树下，阳光，花瓣"
+      ],
+      "gmtCreate": "2024-05-28 10:23:43"
+    }
+  ],
+  "failed": false
+}
