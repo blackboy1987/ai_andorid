@@ -9,6 +9,8 @@ import androidx.navigation.compose.rememberNavController
 import com.bootx.ai.ui.navigation.Destinations
 import com.bootx.ai.ui.screen.HomeScreen
 import com.bootx.ai.ui.screen.MineScreen
+import com.bootx.ai.ui.screen.MyWebView
+import com.bootx.ai.ui.screen.SignScreen
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
@@ -21,7 +23,7 @@ fun NavHostApp() {
         composable(
             Destinations.MainFrame.route,
         ) {
-            MineScreen(navController)
+            SignScreen(navController)
         }
         composable(
             Destinations.HomeFrame.route,

@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -39,7 +40,7 @@ fun RequestExpressDrawFeedAd(context: Context,callback:(status: String)->Unit) {
         return
     }
     AndroidView(
-        modifier = Modifier.fillMaxWidth(),factory = {
+        modifier = Modifier.fillMaxSize(),factory = {
         val view = LayoutInflater.from(context).inflate(R.layout.activity_video_feed, null)
         val findViewById = view.findViewById<FrameLayout>(R.id.ad_flayout)
         adClient.requestExpressDrawFeedAd(adId, object : AdLoadAdapter(){

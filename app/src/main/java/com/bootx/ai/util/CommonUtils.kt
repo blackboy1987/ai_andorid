@@ -154,8 +154,6 @@ object CommonUtils {
             onClose(100)
             return
         }
-
-
         if(getAdErrorStatus(context,"requestRewardAd")){
             requestRewardAd(context) { status ->
                 if(status=="loadRewardAdSuc" || status=="loadRewardAdFail"){
