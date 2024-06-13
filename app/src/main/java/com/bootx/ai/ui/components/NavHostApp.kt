@@ -8,8 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bootx.ai.ui.navigation.Destinations
 import com.bootx.ai.ui.screen.HomeScreen
-import com.bootx.ai.ui.screen.LoginCodeScreen
-import com.bootx.ai.ui.screen.LoginScreen
+import com.bootx.ai.ui.screen.MineScreen
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
@@ -22,7 +21,7 @@ fun NavHostApp() {
         composable(
             Destinations.MainFrame.route,
         ) {
-            LoginCodeScreen(navController)
+            MineScreen(navController)
         }
         composable(
             Destinations.HomeFrame.route,
