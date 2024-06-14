@@ -8,10 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bootx.ai.ui.navigation.Destinations
 import com.bootx.ai.ui.screen.HomeScreen
-import com.bootx.ai.ui.screen.MainScreen
-import com.bootx.ai.ui.screen.MineScreen
-import com.bootx.ai.ui.screen.MyWebView
-import com.bootx.ai.ui.screen.SignScreen
+import com.bootx.ai.ui.screen.WriteScreen
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
@@ -24,7 +21,7 @@ fun NavHostApp() {
         composable(
             Destinations.MainFrame.route,
         ) {
-            MainScreen(navController)
+            WriteScreen(navController)
         }
         composable(
             Destinations.HomeFrame.route,
