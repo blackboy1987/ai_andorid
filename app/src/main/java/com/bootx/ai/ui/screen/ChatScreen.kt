@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
@@ -42,15 +43,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.bootx.ai.ui.viewmodal.HomeModel
+import com.bootx.ai.ui.viewmodal.ChatModel
 import com.bootx.ai.util.CommonUtils
 
 @Composable
 fun ChatScreen(
     navController: NavController,
-    homeModel: HomeModel = viewModel()
+    chatModel: ChatModel = viewModel()
 ) {
-    val messages by homeModel.messages.collectAsState()
+    val messages by chatModel.messages.collectAsState()
     var content by remember {
         mutableStateOf("")
     }
@@ -63,11 +64,9 @@ fun ChatScreen(
                 .weight(1.0f)
                 .padding(8.dp),
         ) {
-            items(10) { index ->
-                if (index % 2 == 0) {
-                    OtherContent()
-                } else {
-                    MyContent()
+            if(messages.isNotEmpty()){
+                items(messages){
+                    OtherContent(content = it.content)
                 }
             }
         }
@@ -94,7 +93,7 @@ fun ChatScreen(
             )
             IconButton(onClick = {
                 if(content.isNotBlank()){
-                    homeModel.connect(content)
+                    chatModel.connect(content)
                     content = ""
                 }else{
                     CommonUtils.toast(context,"请输入内容")
@@ -120,7 +119,7 @@ fun hideKeyboard(context: Context) {
 }
 
 @Composable
-fun OtherContent() {
+fun OtherContent(content: String) {
     Row(
         modifier = Modifier.padding(bottom = 8.dp)
     ) {
@@ -146,7 +145,7 @@ fun OtherContent() {
                 color = Color.White,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
-                text = "我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文我是中文"
+                text = content
             )
         }
         Spacer(modifier = Modifier.width(40.dp))
@@ -154,7 +153,7 @@ fun OtherContent() {
 }
 
 @Composable
-fun MyContent() {
+fun MyContent(content: String) {
     Row(
         modifier = Modifier.padding(bottom = 8.dp)
     ) {
@@ -171,7 +170,7 @@ fun MyContent() {
                 color = Color.White,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
-                text = "sadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfassadfasfas"
+                text = content,
             )
         }
         Spacer(modifier = Modifier.width(4.dp))

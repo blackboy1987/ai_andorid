@@ -23,7 +23,7 @@ class SSEClient(
     val events = _events.receiveAsFlow()
     private var call: Call? = null
 
-    fun connect(parameters: Map<String, String>) {
+    fun connect(parameters: Map<String, String>,onEvent: (String) -> Unit) {
         val urlBuilder = baseUrl.toHttpUrlOrNull()?.newBuilder()
         parameters.forEach { (key, value) ->
             urlBuilder?.addQueryParameter(key, value)
@@ -52,7 +52,9 @@ class SSEClient(
                         val line = source.readUtf8Line()
                         line?.let {
                             if (it.startsWith("data:")) {
-                                _events.trySend(it.removePrefix("data:").trim()).isSuccess
+                                val message = it.removePrefix("data:").trim()
+                                onEvent(message)
+                                _events.trySend(message).isSuccess
                             }
                         }
                     }

@@ -7,6 +7,7 @@ data class TextMessageEntity(
     val totalTokens: String="",
     val finishReason: String="",
     val role: String="",
-    val content: String="",
+    var content: String="",
+    var isUser:Boolean = false,
 )
 data class TextMessageEntityResponse(val data: List<TextMessageEntity>) : BaseResponse()
