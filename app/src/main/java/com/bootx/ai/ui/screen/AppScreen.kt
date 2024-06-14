@@ -68,7 +68,7 @@ fun AppScreen(
                             .padding(4.dp)
                     ) {
                         Column(
-                            modifier = Modifier.padding(vertical = 32.dp),
+                            modifier = Modifier.padding(vertical = 16.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
                             AsyncImage(
@@ -77,7 +77,7 @@ fun AppScreen(
                                 modifier = Modifier.size(80.dp),
                                 contentScale = ContentScale.FillBounds,
                             )
-                            Spacer(modifier = Modifier.height(24.dp))
+                            Spacer(modifier = Modifier.height(16.dp))
                             Text(
                                 text = appEntity.title,
                                 fontSize = 12.sp,
