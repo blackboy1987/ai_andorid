@@ -202,5 +202,16 @@ object CommonUtils {
         return regex.matches(phoneNumber)
     }
 
-    fun checkAd(context: Context){}
+    /**
+     * 清除缓存
+     */
+    fun clearCache(context: Context) {
+        try {
+            val cacheDir = context.cacheDir
+            val cacheSizeInBytes = cacheDir.walk().map { it.length() }.sum()
+            cacheDir.deleteRecursively()
+        } catch (e: Exception) {
+            CommonUtils.toast(context, "Failed to clear cache: ${e.message}")
+        }
+    }
 }
