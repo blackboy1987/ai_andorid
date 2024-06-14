@@ -10,6 +10,7 @@ object AppInfoUtils {
      * 获取当前app的信息
      */
     fun getAppInfo(context: Context):AppInfo{
+        val versionName1 = android.defaultConfig.versionName
         val appInfo = context.packageManager.getApplicationInfo(context.packageName, 0)
         val appName = context.packageManager.getApplicationLabel(appInfo).toString()
         val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)

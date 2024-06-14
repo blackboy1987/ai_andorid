@@ -1,5 +1,6 @@
 package com.bootx.ai.ui.screen
 
+import android.util.Log
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -36,13 +37,17 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.navigation.NavController
+import com.bootx.ai.util.AppInfoUtils
+import com.bootx.ai.util.CommonUtils
 import kotlinx.coroutines.launch
 import kotlin.math.abs
+import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities.Local
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -62,9 +67,14 @@ fun MainScreen(
         initialPage = selectedTabIndex,
         pageCount = {tabs.size}
     )
+    val context = LocalContext.current
 
     LaunchedEffect(pageSate.currentPage) {
         selectedTabIndex = pageSate.currentPage
+        val appInfo = AppInfoUtils.getAppInfo(
+            context
+        )
+        Log.e("AppInfoUtils", "MainScreen: ${appInfo.versionCode}", )
     }
 
     Scaffold(
