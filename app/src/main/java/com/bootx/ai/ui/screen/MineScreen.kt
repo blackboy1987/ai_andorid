@@ -50,6 +50,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.bootx.ai.ui.components.WebView
+import com.bootx.ai.ui.components.dialog.BasicDialog
 import com.bootx.ai.ui.viewmodal.HomeModel
 import com.bootx.ai.util.CommonUtils
 
@@ -104,10 +106,19 @@ fun MineScreen(
                             fontWeight = FontWeight.Bold,
                             fontSize = 14.sp,
                         )
-                        Text(text = "ID:1532788",fontSize = 12.sp)
+                        Text(text = "ID:1532788", fontSize = 12.sp)
                     }
                 }
             }
         }
     }
+    BasicDialog(
+        height=300,
+        title = "温馨提示",
+        content = {
+            WebView(url = "https://www.baidu.com")
+        },
+        cancelText = "拒绝",
+        confirmText = "同意",
+    )
 }

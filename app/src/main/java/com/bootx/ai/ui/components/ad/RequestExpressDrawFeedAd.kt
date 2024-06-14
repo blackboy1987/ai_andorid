@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,20 +27,25 @@ import java.util.Date
 @Composable
 fun RequestExpressDrawFeedAd(context: Context,callback:(status: String)->Unit) {
     val adType = "模板视频信息流"
-    val gson = Gson()
-    val adConfig = gson.fromJson(SharedPreferencesUtils(context).get("adConfig"), AdConfigEntity::class.java)
-    val adId = adConfig.videoFeedAdId
     val adData = CommonUtils.getSystemParams(context)
-    adData["adId"] = adId
-    adData["adType"] = adType
-    adData["mediaId"] = adConfig.mediaId
+    val adId: String
+    try {
+        val gson = Gson()
+        val adConfig = gson.fromJson(SharedPreferencesUtils(context).get("adConfig"), AdConfigEntity::class.java)
+        adId=adConfig.videoFeedAdId
+        adData["adId"] = adId
+        adData["adType"] = adType
+        adData["mediaId"] = adConfig.mediaId
+    }catch (e:Exception){
+        return
+    }
     val adClient = AdClient(context as Activity)
     if(!CommonUtils.getAdErrorStatus(context,"RequestExpressDrawFeedAd")){
         callback("onError")
         return
     }
     AndroidView(
-        modifier = Modifier.fillMaxWidth(),factory = {
+        modifier = Modifier.fillMaxSize(),factory = {
         val view = LayoutInflater.from(context).inflate(R.layout.activity_video_feed, null)
         val findViewById = view.findViewById<FrameLayout>(R.id.ad_flayout)
         adClient.requestExpressDrawFeedAd(adId, object : AdLoadAdapter(){

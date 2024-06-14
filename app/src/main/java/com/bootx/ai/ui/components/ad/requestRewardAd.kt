@@ -18,13 +18,18 @@ import java.util.Date
 fun requestRewardAd(context: Context, callback:(type:String)->Unit) {
 
     val adType = "激励视频广告"
-    val gson = Gson()
-    val adConfig = gson.fromJson(SharedPreferencesUtils(context).get("adConfig"), AdConfigEntity::class.java)
-    val adId = adConfig.rewardVideoAdId
     val adData = CommonUtils.getSystemParams(context)
-    adData["adId"] = adId
-    adData["adType"] = adType
-    adData["mediaId"] = adConfig.mediaId
+    val adId: String
+    try {
+        val gson = Gson()
+        val adConfig = gson.fromJson(SharedPreferencesUtils(context).get("adConfig"), AdConfigEntity::class.java)
+        adId=adConfig.videoFeedAdId
+        adData["adId"] = adId
+        adData["adType"] = adType
+        adData["mediaId"] = adConfig.mediaId
+    }catch (e:Exception){
+        return
+    }
     val adClient = AdClient(context as Activity)
     adClient.requestRewardAd(adId, object : RewardVideoAdAdapter() {
         override fun loadRewardAdSuc(sspAd: SSPAd?) {

@@ -154,8 +154,6 @@ object CommonUtils {
             onClose(100)
             return
         }
-
-
         if(getAdErrorStatus(context,"requestRewardAd")){
             requestRewardAd(context) { status ->
                 if(status=="loadRewardAdSuc" || status=="loadRewardAdFail"){
@@ -203,4 +201,6 @@ object CommonUtils {
         val regex = Regex("^1[3-9]\\d{9}$")
         return regex.matches(phoneNumber)
     }
+
+    fun checkAd(context: Context){}
 }

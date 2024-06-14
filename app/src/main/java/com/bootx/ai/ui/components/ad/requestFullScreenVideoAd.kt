@@ -19,13 +19,18 @@ import java.util.Date
 fun requestFullScreenVideoAd(context: Context, callback:(type:String)->Unit) {
 
     val adType = "全屏视频"
-    val gson = Gson()
-    val adConfig = gson.fromJson(SharedPreferencesUtils(context).get("adConfig"), AdConfigEntity::class.java)
-    val adId = adConfig.fullScreenVideoAdId
     val adData = CommonUtils.getSystemParams(context)
-    adData["adId"] = adId
-    adData["adType"] = adType
-    adData["mediaId"] = adConfig.mediaId
+    val adId: String
+    try {
+        val gson = Gson()
+        val adConfig = gson.fromJson(SharedPreferencesUtils(context).get("adConfig"), AdConfigEntity::class.java)
+        adId=adConfig.videoFeedAdId
+        adData["adId"] = adId
+        adData["adType"] = adType
+        adData["mediaId"] = adConfig.mediaId
+    }catch (e:Exception){
+        return
+    }
     val adClient = AdClient(context as Activity)
     if(!CommonUtils.getAdErrorStatus(context,"requestFullScreenVideoAd")){
         callback("onError")
