@@ -27,13 +27,18 @@ import java.util.Date
 @Composable
 fun RequestSplashAd(context: Context,callback:(status: String)->Unit) {
     val adType = "开屏广告"
-    val gson = Gson()
-    val adConfig = gson.fromJson(SharedPreferencesUtils(context).get("adConfig"), AdConfigEntity::class.java)
-    val adId = adConfig.splashAdId
     val adData = CommonUtils.getSystemParams(context)
-    adData["adId"] = adId
-    adData["adType"] = adType
-    adData["mediaId"] = adConfig.mediaId
+    val adId: String
+    try {
+        val gson = Gson()
+        val adConfig = gson.fromJson(SharedPreferencesUtils(context).get("adConfig"), AdConfigEntity::class.java)
+        adId=adConfig.videoFeedAdId
+        adData["adId"] = adId
+        adData["adType"] = adType
+        adData["mediaId"] = adConfig.mediaId
+    }catch (e:Exception){
+        return
+    }
     val adClient = AdClient(context as Activity)
     AndroidView(
         modifier = Modifier.fillMaxSize(),

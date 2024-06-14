@@ -1,6 +1,8 @@
 package com.bootx.ai.util
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -26,6 +28,46 @@ class SharedPreferencesUtils(private val context: Context) {
         }
         return preferences[dataStoreKey]?:""
     }
+
+
+
+    fun getToken(): String {
+        val dataStoreKey = stringPreferencesKey("token")
+        val preferences = runBlocking {
+            context.dataStore.data.first()
+        }
+        return preferences[dataStoreKey]?:""
+    }
+
+    fun setToken(token:String) {
+        val dataStoreKey = stringPreferencesKey("token")
+        runBlocking {
+            context.dataStore.edit { preferences ->
+                preferences[dataStoreKey] = token
+            }
+        }
+    }
+
+    fun getDeviceId(): String {
+        val dataStoreKey = stringPreferencesKey("deviceId")
+        val preferences = runBlocking {
+            context.dataStore.data.first()
+        }
+        return preferences[dataStoreKey]?:""
+    }
+
+    fun setDeviceId(deviceId:String) {
+        val dataStoreKey = stringPreferencesKey("deviceId")
+        runBlocking {
+            context.dataStore.edit { preferences ->
+                preferences[dataStoreKey] = deviceId
+            }
+        }
+    }
+
+
+
+
 
     fun remove(key: String) {
         val dataStoreKey = stringPreferencesKey(key)

@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
         init {
             setContent{
                 var adStatus by remember {
-                    mutableIntStateOf(0)
+                    mutableIntStateOf(-1)
                 }
                 if(SharedPreferencesUtils(this@MainActivity).get("loadAdStatus")=="0"){
                     SplashScreen(){
@@ -143,11 +143,15 @@ class MainActivity : ComponentActivity() {
         }
         if (result != null) {
             if(result.isNotBlank()){
-                SharedPreferencesUtils(this@MainActivity).set("adConfig",result)
-                val gson = Gson()
-                val adConfig = gson.fromJson(result, AdConfigEntity::class.java)
-                SSPSdk.init(this@MainActivity, adConfig.mediaId, true)
-                SharedPreferencesUtils(this@MainActivity).set("loadAdStatus","0")
+                try {
+                    SharedPreferencesUtils(this@MainActivity).set("adConfig",result)
+                    val gson = Gson()
+                    val adConfig = gson.fromJson(result, AdConfigEntity::class.java)
+                    SSPSdk.init(this@MainActivity, adConfig.mediaId, true)
+                    SharedPreferencesUtils(this@MainActivity).set("loadAdStatus","0")
+                }catch (e:Exception){
+                    SharedPreferencesUtils(this@MainActivity).set("loadAdStatus","-1")
+                }
             }else{
                 SharedPreferencesUtils(this@MainActivity).set("loadAdStatus","-1")
             }
