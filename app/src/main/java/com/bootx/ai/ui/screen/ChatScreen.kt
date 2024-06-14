@@ -17,7 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -25,6 +25,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,12 +43,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.bootx.ai.ui.viewmodal.HomeModel
+import com.bootx.ai.util.CommonUtils
 
 @Composable
 fun ChatScreen(
     navController: NavController,
     homeModel: HomeModel = viewModel()
 ) {
+    val messages by homeModel.messages.collectAsState()
     var content by remember {
         mutableStateOf("")
     }
@@ -90,11 +93,17 @@ fun ChatScreen(
                 }
             )
             IconButton(onClick = {
-                content = ""
+                if(content.isNotBlank()){
+                    homeModel.connect(content)
+                    content = ""
+                }else{
+                    CommonUtils.toast(context,"请输入内容")
+                }
+
                 hideKeyboard(context)
                 focusManager.clearFocus()
             }) {
-                Icon(imageVector = Icons.Default.Send, contentDescription = "")
+                Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = "")
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
