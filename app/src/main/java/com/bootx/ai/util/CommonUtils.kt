@@ -8,6 +8,9 @@ import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import com.bootx.ai.config.Config
 import com.bootx.ai.entity.Env
@@ -224,5 +227,17 @@ object CommonUtils {
         currentFocus?.let {
             inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
         }
+    }
+    fun hide(value: String,start:Int,count:Int):String {
+        val split = value.split("")
+        var result by mutableStateOf("")
+        split.forEachIndexed{index, s ->
+            result += if (index >= start && index<=(start+count)) {
+                "*"
+            } else {
+                s
+            }
+        }
+        return result
     }
 }

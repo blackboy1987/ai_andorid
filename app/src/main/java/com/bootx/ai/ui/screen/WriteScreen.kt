@@ -20,6 +20,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -45,7 +46,8 @@ import java.util.UUID
 @Composable
 fun WriteScreen(
     navController: NavController,
-    writeModel: WriteModel = viewModel()
+    id: String,
+    writeModel: WriteModel = viewModel(),
 ) {
     val context = LocalContext.current
     var appEntity by remember {
@@ -54,8 +56,12 @@ fun WriteScreen(
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
-        writeModel.config(context, 1)
-        appEntity = writeModel.appEntity
+        try {
+            writeModel.config(context, id.toInt())
+            appEntity = writeModel.appEntity
+        }catch (_:Exception){
+
+        }
     }
 
     Scaffold(
@@ -67,7 +73,9 @@ fun WriteScreen(
                     overflow = TextOverflow.Ellipsis
                 )
             }, navigationIcon = {
-                IconButton(onClick = {  }) {
+                IconButton(onClick = {
+                    navController.popBackStack()
+                }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                         contentDescription = ""
@@ -106,7 +114,11 @@ fun WriteScreen(
                     Column(
                         modifier = Modifier.padding(8.dp)
                     ) {
-                        MySelect(options = it.options,1)
+                        MySelect(options = it.options,it.radioIndex, onClick = {value: Int->
+                            coroutineScope.launch {
+                                writeModel.changeValue(label = it.label,"$value")
+                            }
+                        })
                     }
                 } else if (it.formType == "multiSelect") {
                     Column(
@@ -118,8 +130,12 @@ fun WriteScreen(
                 }
             }
             item{
-                Button(onClick = {
-                    Log.e("WriteScreen", "WriteScreen: $appEntity", )
+                Button(
+                    enabled = !writeModel.loading,
+                    onClick = {
+                    coroutineScope.launch {
+                        writeModel.submit(context)
+                    }
                 }, modifier = Modifier.fillMaxWidth()) {
                     Text(text = "创作")
                 }

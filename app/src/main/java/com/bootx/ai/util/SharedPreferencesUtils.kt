@@ -64,7 +64,22 @@ class SharedPreferencesUtils(private val context: Context) {
             }
         }
     }
+    fun getCodeCountDown(): String {
+        val dataStoreKey = stringPreferencesKey("codeCountDown")
+        val preferences = runBlocking {
+            context.dataStore.data.first()
+        }
+        return preferences[dataStoreKey]?:"0"
+    }
 
+    fun setCodeCountDown(codeCodeDown:String) {
+        val dataStoreKey = stringPreferencesKey("codeCountDown")
+        runBlocking {
+            context.dataStore.edit { preferences ->
+                preferences[dataStoreKey] = codeCodeDown
+            }
+        }
+    }
 
 
 

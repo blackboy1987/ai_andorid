@@ -83,7 +83,7 @@ dependencies {
     implementation("com.umeng.umsdk:asms:1.8.2")
 
     // 图片懒加载
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
 
     implementation("androidx.core:core-ktx:1.13.1")

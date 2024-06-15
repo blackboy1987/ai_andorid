@@ -1,5 +1,8 @@
 package com.bootx.ai.ui.components
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
@@ -9,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -16,7 +20,11 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -28,6 +36,10 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.media3.exoplayer.ExoPlayer
+import kotlinx.coroutines.delay
+import java.util.Date
 
 @Composable
 fun MyInput(
@@ -62,15 +74,19 @@ fun MyInput(
 }
 
 @Composable
-fun MySelect(options: List<String>, selectIndex: Int = -1) {
+fun MySelect(options: List<String>, selectIndex: Int = -1,onClick: (index:Int) -> Unit) {
+    var selected by remember { mutableIntStateOf(selectIndex) }
     options.forEachIndexed { index, option ->
         Row(
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             CustomRadioButton(
-                selected = selectIndex == index,
-                onClick = { },
+                selected = selected == index,
+                onClick = {
+                    selected = index
+                    onClick(index)
+                },
                 size = 16.dp // 设置单选按钮的大小
             )
             Spacer(modifier = Modifier.width(4.dp))
@@ -173,4 +189,23 @@ fun CustomCheckbox(
             }
         }
     }
+}
+
+@SuppressLint("DefaultLocale")
+@Composable
+fun CountdownTimer(
+    countDown: Long,
+    onFinish: () -> Unit
+) {
+    var timeLeft by remember { mutableLongStateOf(countDown-Date().time) }
+    LaunchedEffect(key1 = timeLeft) {
+        if (timeLeft > 0) {
+            delay(1000L)
+            timeLeft -= 1000L
+        } else {
+            onFinish()
+        }
+    }
+    val seconds = timeLeft / 1000
+    Text(text = "${String.format("%02d", seconds)} 秒重新获取",fontSize = 12.sp,)
 }

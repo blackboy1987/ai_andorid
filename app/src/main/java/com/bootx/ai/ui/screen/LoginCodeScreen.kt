@@ -1,7 +1,9 @@
 package com.bootx.ai.ui.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,8 +23,11 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,21 +35,42 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.bootx.ai.ui.components.CountdownTimer
+import com.bootx.ai.ui.navigation.Destinations
 import com.bootx.ai.ui.viewmodal.HomeModel
+import com.bootx.ai.ui.viewmodal.LoginModel
+import com.bootx.ai.util.CommonUtils
+import com.bootx.ai.util.SharedPreferencesUtils
+import kotlinx.coroutines.launch
+import kotlin.math.log
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginCodeScreen(
     navController: NavController,
-    homeModel: HomeModel = viewModel()
+    loginModel: LoginModel = viewModel()
 ) {
+    val context = LocalContext.current
+    var countDown by remember {
+        mutableLongStateOf(SharedPreferencesUtils(context).getCodeCountDown().toLong())
+    }
+    var mobile by remember {
+        mutableStateOf(SharedPreferencesUtils(context).get("mobile"))
+    }
+
+    var isEnd by remember {
+        mutableStateOf(false)
+    }
+    var coroutineScope = rememberCoroutineScope()
+
     Scaffold(
         topBar = {
             TopAppBar(title = { }, navigationIcon = {
@@ -70,7 +96,7 @@ fun LoginCodeScreen(
             }
             item {
                 Text(
-                    text = "已发送4位验证码至 138****3652",
+                    text = "已发送4位验证码至 ${CommonUtils.hide(mobile,4,4)}",
                     fontSize = 12.sp,
                     modifier = Modifier.padding(bottom = 24.dp)
                 )
@@ -81,13 +107,33 @@ fun LoginCodeScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     OTPTextField(onOTPComplete = { otp ->
-                        println("Entered OTP: $otp")
+                        coroutineScope.launch {
+                            val login = loginModel.login(context, otp)
+                            if(login.code==0){
+                                // 登录成功,跳转到首页
+                                navController.navigate(Destinations.MainFrame.route)
+                            }
+                        }
                     })
                 }
             }
             item {
-                TextButton(onClick = { /*TODO*/ }) {
+                if(!isEnd){
+                    Spacer(modifier = Modifier.height(8.dp))
+                    CountdownTimer(countDown = countDown) {
+                        isEnd = true
+                    }
+                }else{
                     Text(
+                        modifier = Modifier.padding(8.dp).clickable {
+                            if(!loginModel.loading){
+                                coroutineScope.launch {
+                                    loginModel.sendCode(context,mobile)
+                                    countDown = SharedPreferencesUtils(context).getCodeCountDown().toLong()
+                                    isEnd = false
+                                }
+                            }
+                        },
                         text = "重新获取",
                         fontSize = 12.sp,
                     )

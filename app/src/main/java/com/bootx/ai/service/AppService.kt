@@ -10,15 +10,22 @@ import retrofit2.http.POST
 
 interface AppService {
 
-    @POST("/api/categoryApp/config")
+    @POST("/api/member/categoryApp/config")
     @FormUrlEncoded
     suspend fun config(
         @Header("token") token: String,
-        @Field("deviceId") deviceId: String,
+        @Header("deviceId") deviceId: String,
         @Field("id") id: Int,
     ): AppEntityResponse
 
-
+    @POST("/api/member/categoryApp/write")
+    @FormUrlEncoded
+    suspend fun write(
+        @Header("token") token: String,
+        @Header("deviceId") deviceId: String,
+        @Field("categoryAppId") categoryAppId: Int,
+        @Field("params") params: String,
+    ): AppEntityResponse
     companion object {
         fun instance(): AppService {
             return HiRetrofit.create(AppService::class.java)

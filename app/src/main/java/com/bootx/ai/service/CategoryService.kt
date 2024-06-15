@@ -10,7 +10,7 @@ import retrofit2.http.POST
 
 interface CategoryService {
 
-    @POST("/api/category/list")
+    @POST("/api/member/category/list")
     @FormUrlEncoded
     suspend fun list(
         @Header("token") token: String,
