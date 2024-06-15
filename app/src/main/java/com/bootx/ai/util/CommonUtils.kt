@@ -1,10 +1,12 @@
 package com.bootx.ai.util
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.telephony.TelephonyManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bootx.ai.config.Config
@@ -212,6 +214,15 @@ object CommonUtils {
             cacheDir.deleteRecursively()
         } catch (e: Exception) {
             CommonUtils.toast(context, "Failed to clear cache: ${e.message}")
+        }
+    }
+
+    fun hideKeyboard(context: Context) {
+        val inputMethodManager =
+            context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocus = (context as? Activity)?.currentFocus
+        currentFocus?.let {
+            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
 }

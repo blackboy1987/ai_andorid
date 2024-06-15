@@ -1,8 +1,5 @@
 package com.bootx.ai.ui.screen
 
-import android.app.Activity
-import android.content.Context
-import android.view.inputmethod.InputMethodManager
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -99,22 +96,13 @@ fun ChatScreen(
                     CommonUtils.toast(context,"请输入内容")
                 }
 
-                hideKeyboard(context)
+                CommonUtils.hideKeyboard(context)
                 focusManager.clearFocus()
             }) {
                 Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = "")
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
-    }
-}
-
-fun hideKeyboard(context: Context) {
-    val inputMethodManager =
-        context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    val currentFocus = (context as? Activity)?.currentFocus
-    currentFocus?.let {
-        inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
     }
 }
 

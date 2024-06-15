@@ -24,4 +24,14 @@ class WriteModel : ViewModel() {
             appEntity = res.data
         }
     }
+
+    suspend fun changeValue(label: String,value: String) {
+        val newAppEntity = appEntity
+        val filter =
+            newAppEntity.formDataList.filter { item -> item.label == label }
+        if(filter.isNotEmpty()){
+            filter[0].value = value
+        }
+        appEntity = newAppEntity
+    }
 }

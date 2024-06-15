@@ -1,63 +1,44 @@
 package com.bootx.ai.ui.screen
 
-import android.provider.MediaStore.Audio.Radio
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import android.util.Log
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import com.bootx.ai.ui.viewmodal.AppModel
-import com.bootx.ai.ui.viewmodal.HomeModel
+import com.bootx.ai.config.Config
+import com.bootx.ai.entity.AppEntity
+import com.bootx.ai.ui.components.MyInput
+import com.bootx.ai.ui.components.MyMultiSelect
+import com.bootx.ai.ui.components.MySelect
 import com.bootx.ai.ui.viewmodal.WriteModel
+import com.bootx.ai.util.SharedPreferencesUtils
+import kotlinx.coroutines.launch
+import java.util.UUID
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,8 +48,14 @@ fun WriteScreen(
     writeModel: WriteModel = viewModel()
 ) {
     val context = LocalContext.current
+    var appEntity by remember {
+        mutableStateOf(AppEntity())
+    }
+    val coroutineScope = rememberCoroutineScope()
+
     LaunchedEffect(Unit) {
         writeModel.config(context, 1)
+        appEntity = writeModel.appEntity
     }
 
     Scaffold(
@@ -80,7 +67,7 @@ fun WriteScreen(
                     overflow = TextOverflow.Ellipsis
                 )
             }, navigationIcon = {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = {  }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                         contentDescription = ""
@@ -95,136 +82,47 @@ fun WriteScreen(
                 .fillMaxSize()
                 .padding(8.dp),
         ) {
-            items(writeModel.appEntity.formDataList) {
+            items(appEntity.formDataList) {
                 Text(text = it.label)
                 if (it.formType == "input") {
-                    TextField(
-                        modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
-                        placeholder = { Text(text = it.placeholder) })
-                } else if (it.formType == "textarea") {
-                    TextField(
-                        modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
-                        minLines = 4,
-                        maxLines = 4,
-                        placeholder = { Text(text = it.placeholder) })
-                } else if (it.formType == "keywords") {
-                    TextField(
-                        modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
-                        placeholder = { Text(text = it.placeholder) })
-                } else if (it.formType == "select") {
-                    it.options.forEach { option ->
-                        Row(
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            CustomRadioButton(
-                                selected = false,
-                                onClick = {  },
-                                size = 16.dp // 设置单选按钮的大小
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text(
-                                text = option,
-                                fontSize = MaterialTheme.typography.labelLarge.fontSize,
-                            )
+                    MyInput(value= it.value, onValueChange = { value: String ->
+                        coroutineScope.launch {
+                            writeModel.changeValue(label = it.label,value)
                         }
+                    })
+                } else if (it.formType == "textarea") {
+                    MyInput(minLines = 4, maxLines = 4, value= it.value, onValueChange = { value: String ->
+                        coroutineScope.launch {
+                            writeModel.changeValue(label = it.label,value)
+                        }
+                    })
+                } else if (it.formType == "keywords") {
+                    MyInput(value= it.value, onValueChange = { value: String ->
+                        coroutineScope.launch {
+                            writeModel.changeValue(label = it.label,value)
+                        }
+                    })
+                } else if (it.formType == "select") {
+                    Column(
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        MySelect(options = it.options,1)
                     }
                 } else if (it.formType == "multiSelect") {
-                    it.options.forEach { option ->
-                        Row(
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            CustomCheckbox(
-                                checked = false,
-                                onCheckedChange = {},
-                                size = 16.dp
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text(
-                                text = option,
-                                fontSize = MaterialTheme.typography.labelLarge.fontSize,
-                            )
-                        }
+                    Column(
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        MyMultiSelect(options = it.options, selectIndex = listOf(1,2))
                     }
+
                 }
             }
-        }
-    }
-}
-@Composable
-fun CustomRadioButton(
-    selected: Boolean,
-    onClick: () -> Unit,
-    size: Dp
-) {
-    Box(
-        modifier = Modifier
-            .size(size)
-            .padding(4.dp)
-            .clickable(onClick = onClick)
-    ) {
-        val color = if (selected) MaterialTheme.colorScheme.primary else Color.Gray
-
-        Canvas(modifier = Modifier.matchParentSize()) {
-            drawCustomRadioButton(selected, color, size.toPx())
-        }
-    }
-}
-
-fun DrawScope.drawCustomRadioButton(selected: Boolean, color: Color, size: Float) {
-    val strokeWidth = size * 0.1f
-
-    if (selected) {
-        drawCircle(
-            color = color,
-            radius = size / 2,
-            style = Stroke(width = strokeWidth)
-        )
-        drawCircle(
-            color = color,
-            radius = size / 4
-        )
-    } else {
-        drawCircle(
-            color = color,
-            radius = size / 2,
-            style = Stroke(width = strokeWidth)
-        )
-    }
-}
-
-@Composable
-fun CustomCheckbox(
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
-    size: Dp
-) {
-    val color = if (checked) MaterialTheme.colorScheme.primary else Color.Gray
-
-    Box(
-        modifier = Modifier
-            .size(size)
-            .clickable { onCheckedChange(!checked) }
-    ) {
-        Canvas(modifier = Modifier.matchParentSize()) {
-            if (checked) {
-                drawRoundRect(
-                    color = color,
-                    size = androidx.compose.ui.geometry.Size(size.toPx(), size.toPx())
-                )
-            } else {
-                drawRoundRect(
-                    color = color,
-                    size = androidx.compose.ui.geometry.Size(size.toPx(), size.toPx()),
-                    style = Stroke(width = 2.dp.toPx())
-                )
+            item{
+                Button(onClick = {
+                    Log.e("WriteScreen", "WriteScreen: $appEntity", )
+                }, modifier = Modifier.fillMaxWidth()) {
+                    Text(text = "创作")
+                }
             }
         }
     }

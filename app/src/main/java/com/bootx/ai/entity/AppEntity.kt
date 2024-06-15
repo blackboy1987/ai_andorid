@@ -14,6 +14,7 @@ data class FormDataList(
     val isRequired: Boolean=false,
     val placeholder: String="",
     val options: List<String> = listOf(),
+    var value: String="",
 )
 
 data class AppEntityListResponse(val data: List<AppEntity>) : BaseResponse()
