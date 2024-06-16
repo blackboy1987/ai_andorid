@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import com.bootx.ai.ui.navigation.Destinations
 import com.bootx.ai.ui.viewmodal.AppModel
+import com.bootx.ai.util.SharedPreferencesUtils
 
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -66,7 +67,13 @@ fun AppScreen(
                         ),
                         modifier = Modifier
                             .clickable {
-                                navController.navigate(Destinations.WriteFrame.route+"/"+appEntity.id)
+                                // 检测是否登录，没有登录跳转到登录
+                                if(SharedPreferencesUtils(context).getToken().isNotBlank()){
+                                   navController.navigate(Destinations.WriteFrame.route+"/"+appEntity.id)
+                                }else{
+                                    navController.navigate(Destinations.LoginFrame.route)
+                                }
+
                             }
                             .fillMaxWidth(0.33f)
                             .padding(4.dp)

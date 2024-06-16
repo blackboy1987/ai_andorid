@@ -6,5 +6,6 @@ sealed class Destinations(val route: String) {
     data object LoginCodeFrame : Destinations("LoginCodeFrame")
     data object AppFrame : Destinations("AppFrame")
     data object WriteFrame : Destinations("WriteFrame")
+    data object LoginFrame : Destinations("LoginFrame")
 
 }

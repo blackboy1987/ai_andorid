@@ -9,12 +9,16 @@ import com.bootx.ai.config.Config
 import com.bootx.ai.entity.AppEntity
 import com.bootx.ai.service.AppService
 import com.bootx.ai.util.SharedPreferencesUtils
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.squareup.moshi.Json
 import java.util.UUID
 
 class WriteModel : ViewModel() {
     private val appService = AppService.instance()
     var appEntity by mutableStateOf(AppEntity())
     var loading by mutableStateOf(false)
+    val gson = Gson()
 
     suspend fun config(context: Context,id:Int) {
 
@@ -51,7 +55,7 @@ class WriteModel : ViewModel() {
         // 解析出来参数
         for (formData in appEntity.formDataList) {
             if(formData.formType=="select"){
-                params[formData.label] = formData.radioIndex
+                params[formData.label] = formData.options[formData.radioIndex]
             }else{
                 params[formData.label] = formData.value
             }
@@ -60,7 +64,7 @@ class WriteModel : ViewModel() {
             SharedPreferencesUtils(context).getToken(),
             SharedPreferencesUtils(context).getDeviceId(),
             appEntity.id,
-            params.toString()
+            gson.toJson(params)
         )
 
     }
