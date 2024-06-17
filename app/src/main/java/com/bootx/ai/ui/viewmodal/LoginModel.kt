@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.bootx.ai.entity.CommonResponse
 import com.bootx.ai.service.LoginService
+import com.bootx.ai.util.CommonUtils
 import com.bootx.ai.util.SharedPreferencesUtils
 import java.util.Date
 
@@ -39,6 +40,8 @@ class LoginModel : ViewModel() {
         if(res.code==0){
             // 登录成功
             SharedPreferencesUtils(context).setToken(res.data)
+        }else{
+            CommonUtils.toast(context,res.data)
         }
         loading = false
         return res

@@ -1,6 +1,5 @@
 package com.bootx.ai.ui.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,18 +8,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -31,15 +29,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.bootx.ai.config.Config
 import com.bootx.ai.entity.AppEntity
 import com.bootx.ai.ui.components.MyInput
 import com.bootx.ai.ui.components.MyMultiSelect
 import com.bootx.ai.ui.components.MySelect
+import com.bootx.ai.ui.navigation.Destinations
 import com.bootx.ai.ui.viewmodal.WriteModel
-import com.bootx.ai.util.SharedPreferencesUtils
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -80,6 +76,12 @@ fun WriteScreen(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                         contentDescription = ""
                     )
+                }
+            }, actions = {
+                IconButton(onClick = {
+                    navController.navigate(Destinations.WriteLogFrame.route+"/"+id)
+                }) {
+                    Icon(imageVector = Icons.Default.MailOutline, contentDescription = "")
                 }
             })
         }
