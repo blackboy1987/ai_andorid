@@ -16,7 +16,7 @@ class ChatModel : ViewModel() {
     private var _messages = MutableStateFlow<List<TextMessageEntity>>(emptyList())
     val messages: StateFlow<List<TextMessageEntity>> = _messages.asStateFlow()
 
-    private val sseClient = SSEClient(Config.baseUrl + "/api/message")
+    private val sseClient = SSEClient(Config.baseUrl + "/api/member/message")
     val gson = Gson()
 
     fun connect(content: String) {
