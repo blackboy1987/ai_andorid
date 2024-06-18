@@ -31,7 +31,7 @@ fun NavHostApp() {
         composable(
             Destinations.MainFrame.route,
         ) {
-            WriteLogDetailScreen(navController,"2024061708081421011")
+            MainScreen(navController)
         }
         composable(
             Destinations.HomeFrame.route,
