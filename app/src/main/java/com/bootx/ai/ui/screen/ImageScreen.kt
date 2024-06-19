@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,13 +26,11 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.SecondaryScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -41,13 +38,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.bootx.ai.ui.viewmodal.HomeModel
+import com.bootx.ai.ui.viewmodal.ImageViewModel
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -56,8 +54,9 @@ import com.bootx.ai.ui.viewmodal.HomeModel
 @Composable
 fun ImageScreen(
     navController: NavController,
-    homeModel: HomeModel = viewModel()
+    imageViewModel: ImageViewModel = viewModel()
 ) {
+    val context = LocalContext.current
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val tabs = listOf(
         "文本生成图像",
@@ -68,6 +67,10 @@ fun ImageScreen(
         "涂鸦作画",
         "图像画面扩展"
     )
+    
+    LaunchedEffect(Unit) {
+        imageViewModel.config(context)
+    }
 
     LazyColumn(
         modifier = Modifier
@@ -144,28 +147,30 @@ fun ImageScreen(
                     .padding(horizontal = 8.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "图片风格")
+                Text(text = "形象")
             }
             FlowRow(
-                maxItemsInEachRow = 3,
+                maxItemsInEachRow = 4,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
             ) {
-                repeat(20) { index ->
+                val modelList1 = imageViewModel.imageAppEntity.modelList.filter { item -> item.category == "profile" }
+                modelList1.forEachIndexed { index, modelList ->
                     Card(
                         modifier = Modifier
-                            .fillMaxWidth(0.33f)
+                            .fillMaxWidth(0.24f)
                             .padding(8.dp)
                     ) {
                         AsyncImage(
-                            model = "https://broadscope-wanxiang.oss-cn-beijing.aliyuncs.com/haole/icon/yangguangshaonian.png",
+                            model = "${modelList.cover}",
                             contentDescription = ""
                         )
                         Text(
-                            text = "阳光少年",
+                            text = "${modelList.modelName}",
                             modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            fontSize = MaterialTheme.typography.labelSmall.fontSize,
                         )
                     }
                 }
@@ -178,153 +183,84 @@ fun ImageScreen(
                     .padding(horizontal = 8.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "图片比例")
+                Text(text = "风格")
             }
             FlowRow(
+                maxItemsInEachRow = 4,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
             ) {
-                repeat(3) { index ->
-                    Column(modifier = Modifier.width(100.dp)) {
-                        if(index==0){
-                            Box(
-                                contentAlignment = Alignment.Center,
-                                modifier = Modifier
-                                    .padding(end = 16.dp)
-                                    .size(80.dp)
-                                    .background(Color.Gray)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .width(64.dp)
-                                        .height(64.dp)
-                                        .background(Color.Red)
-                                )
-                            }
-                            Text(
-                                text = "1:1",
-                                modifier = Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Center,
-                            )
-                        }else if(index==1){
-                            Box(
-                                contentAlignment = Alignment.Center,
-                                modifier = Modifier
-                                    .padding(end = 16.dp)
-                                    .size(80.dp)
-                                    .background(Color.Gray)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .width(64.dp)
-                                        .height(36.dp)
-                                        .background(Color.Red)
-                                )
-                            }
-                            Text(
-                                text = "16:9",
-                                modifier = Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Center,
-                            )
-                        }else if(index==2){
-                            Box(
-                                contentAlignment = Alignment.Center,
-                                modifier = Modifier
-                                    .padding(end = 16.dp)
-                                    .size(80.dp)
-                                    .background(Color.Gray)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .width(36.dp)
-                                        .height(64.dp)
-                                        .background(Color.Red)
-                                )
-                            }
-                            Text(
-                                text = "9:16",
-                                modifier = Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Center,
-                            )
-                        }
-                    }
-                }
-            }
-        }
-        item{
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(text = "模型")
-            }
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-            ) {
-                repeat(3) { index ->
-                    Column(modifier = Modifier.width(100.dp)) {
-                        Box(
-                            contentAlignment = Alignment.Center,
-                            modifier = Modifier
-                                .padding(end = 16.dp)
-                                .size(80.dp)
-                                .background(Color.Gray)
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .width(64.dp)
-                                    .height(64.dp)
-                                    .background(Color.Red)
-                            )
-                        }
+                val modelList1 = imageViewModel.imageAppEntity.modelList.filter { item -> item.category == "style" }
+                modelList1.forEachIndexed { index, modelList ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth(0.24f)
+                            .padding(8.dp)
+                    ) {
+                        AsyncImage(
+                            model = "${modelList.cover}",
+                            contentDescription = ""
+                        )
                         Text(
-                            text = "1:1",
+                            text = "${modelList.modelName}",
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center,
+                            fontSize = MaterialTheme.typography.labelSmall.fontSize,
                         )
                     }
                 }
             }
         }
-        item{
+        item {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "模型")
+                Text(text = "图片大小")
             }
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                repeat(3) { index ->
+                imageViewModel.imageAppEntity.textToImage.resolutions.forEachIndexed { index, s ->
+                    var text = "1:1"
+                    var width = 32.dp
+                    var height = 32.dp
+                    if(index==1){
+                        width=32.dp
+                        height=17.dp
+                        text= "16:9"
+                    }else if(index==2){
+                        width=17.dp
+                        height=32.dp
+                        text= "9:16"
+                    }
+
                     Column(modifier = Modifier.width(100.dp)) {
                         Box(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier
                                 .padding(end = 16.dp)
-                                .size(80.dp)
+                                .size(40.dp)
                                 .background(Color.Gray)
                         ) {
                             Box(
                                 modifier = Modifier
-                                    .width(64.dp)
-                                    .height(64.dp)
+                                    .width(width)
+                                    .height(height)
                                     .background(Color.Red)
                             )
                         }
                         Text(
-                            text = "1:1",
-                            modifier = Modifier.fillMaxWidth(),
+                            text = text,
+                            modifier = Modifier.width(40.dp),
                             textAlign = TextAlign.Center,
+                            fontSize = MaterialTheme.typography.labelSmall.fontSize,
                         )
                     }
                 }
