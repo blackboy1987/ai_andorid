@@ -1,4 +1,4 @@
-package com.bootx.ai.ui.viewmodal
+package com.bootx.ai.viewmodal
 
 import android.content.Context
 import androidx.compose.runtime.getValue

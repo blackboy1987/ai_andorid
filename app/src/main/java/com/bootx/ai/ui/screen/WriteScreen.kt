@@ -34,7 +34,7 @@ import com.bootx.ai.ui.components.MyInput
 import com.bootx.ai.ui.components.MyMultiSelect
 import com.bootx.ai.ui.components.MySelect
 import com.bootx.ai.ui.navigation.Destinations
-import com.bootx.ai.ui.viewmodal.WriteModel
+import com.bootx.ai.viewmodal.WriteModel
 import kotlinx.coroutines.launch
 
 

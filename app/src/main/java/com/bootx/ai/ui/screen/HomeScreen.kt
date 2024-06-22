@@ -42,7 +42,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.bootx.ai.ui.viewmodal.HomeModel
+import com.bootx.ai.viewmodal.HomeModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

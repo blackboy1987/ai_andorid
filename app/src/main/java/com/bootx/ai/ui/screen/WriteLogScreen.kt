@@ -32,8 +32,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.bootx.ai.entity.AppEntity
-import com.bootx.ai.ui.viewmodal.WriteLogModel
-import com.bootx.ai.ui.viewmodal.WriteModel
+import com.bootx.ai.viewmodal.WriteLogModel
+import com.bootx.ai.viewmodal.WriteModel
 import kotlinx.coroutines.launch
 
 

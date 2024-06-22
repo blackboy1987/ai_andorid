@@ -21,8 +21,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,69 +42,85 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.bootx.ai.ui.viewmodal.ChatModel
+import com.bootx.ai.entity.TextMessageEntity
+import com.bootx.ai.viewmodal.ChatViewModel
 import com.bootx.ai.util.CommonUtils
 
 @Composable
 fun ChatScreen(
     navController: NavController,
-    chatModel: ChatModel = viewModel()
+    chatViewModel: ChatViewModel = viewModel()
 ) {
-    val messages by chatModel.messages.collectAsState()
+    val messages by chatViewModel.messages.collectAsState()
     var content by remember {
         mutableStateOf("")
     }
+    var current by remember {
+        mutableStateOf(TextMessageEntity())
+    }
+    LaunchedEffect(chatViewModel.count) {
+        if(messages.isNotEmpty()){
+            current = messages[0]
+        }
+    }
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
-    Column{
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .weight(1.0f)
-                .padding(8.dp),
-        ) {
-            if(messages.isNotEmpty()){
-                items(messages){
-                    OtherContent(content = it.content)
-                }
-            }
-        }
-        Row {
-            BasicTextField(
-                minLines = 1,
-                value = content,
-                onValueChange = { value ->
-                    content = value
-                },
+    Scaffold {
+        Column(
+            modifier = Modifier.padding(it),
+        ){
+            LazyColumn(
                 modifier = Modifier
+                    .fillMaxSize()
                     .weight(1.0f)
-                    .padding(horizontal = 8.dp)
-                    .border(
-                        BorderStroke(1.dp, Color.Blue), // 设置边框颜色
-                        shape = MaterialTheme.shapes.small // 使用默认形状
-                    )
-                    .padding(8.dp), // 内边距
-                decorationBox = { innerTextField ->
-                    Box(modifier = Modifier.padding(8.dp)) {
-                        innerTextField()
+                    .padding(8.dp),
+            ) {
+                item{
+                    Text(text = current.content)
+                }
+                if(messages.isNotEmpty()){
+                    items(messages){
+                        OtherContent(content = it.content)
                     }
                 }
-            )
-            IconButton(onClick = {
-                if(content.isNotBlank()){
-                    chatModel.connect(content)
-                    content = ""
-                }else{
-                    CommonUtils.toast(context,"请输入内容")
-                }
-
-                CommonUtils.hideKeyboard(context)
-                focusManager.clearFocus()
-            }) {
-                Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = "")
             }
+            Row {
+                BasicTextField(
+                    minLines = 1,
+                    value = content,
+                    onValueChange = { value ->
+                        content = value
+                    },
+                    modifier = Modifier
+                        .weight(1.0f)
+                        .padding(horizontal = 8.dp)
+                        .border(
+                            BorderStroke(1.dp, Color.Blue), // 设置边框颜色
+                            shape = MaterialTheme.shapes.small // 使用默认形状
+                        )
+                        .padding(8.dp), // 内边距
+                    decorationBox = { innerTextField ->
+                        Box(modifier = Modifier.padding(8.dp)) {
+                            innerTextField()
+                        }
+                    }
+                )
+                IconButton(onClick = {
+                    if(content.isNotBlank()){
+                        chatViewModel.connect(content)
+                        content = ""
+                    }else{
+                        CommonUtils.toast(context,"请输入内容")
+                    }
+
+                    CommonUtils.hideKeyboard(context)
+                    focusManager.clearFocus()
+                }) {
+                    Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = "")
+                }
+            }
+            Spacer(modifier = Modifier.height(8.dp))
         }
-        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 

@@ -38,7 +38,7 @@ import androidx.navigation.NavController
 import com.bootx.ai.ui.components.ad.RequestExpressDrawFeedAd
 import com.bootx.ai.ui.components.ad.requestFullScreenVideoAd
 import com.bootx.ai.ui.components.ad.requestInteractionAd
-import com.bootx.ai.ui.viewmodal.HomeModel
+import com.bootx.ai.viewmodal.HomeModel
 import com.bootx.ai.util.CommonUtils
 import java.util.Date
 

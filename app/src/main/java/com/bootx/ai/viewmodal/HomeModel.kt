@@ -1,4 +1,4 @@
-package com.bootx.ai.ui.viewmodal
+package com.bootx.ai.viewmodal
 
 import androidx.lifecycle.ViewModel
 

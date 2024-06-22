@@ -31,7 +31,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import com.bootx.ai.ui.navigation.Destinations
-import com.bootx.ai.ui.viewmodal.AppModel
+import com.bootx.ai.viewmodal.AppModel
 import com.bootx.ai.util.SharedPreferencesUtils
 
 

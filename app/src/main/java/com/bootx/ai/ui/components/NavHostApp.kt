@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bootx.ai.ui.navigation.Destinations
-import com.bootx.ai.ui.screen.AppScreen
+import com.bootx.ai.ui.screen.DrawImageResultScreen
 import com.bootx.ai.ui.screen.HomeScreen
 import com.bootx.ai.ui.screen.LoginCodeScreen
 import com.bootx.ai.ui.screen.LoginScreen
@@ -77,6 +77,16 @@ fun NavHostApp() {
         ) {
             val taskId = it.arguments?.getString("taskId") ?: "0"
             WriteLogDetailScreen(navController,taskId)
+        }
+        composable(
+            Destinations.DrawImageResultFrame.route+"/{taskId}",
+            enterTransition = {slideInHorizontally(initialOffsetX = { 1000 }) + fadeIn()},
+            exitTransition = {slideOutHorizontally(targetOffsetX = { -1000 }) + fadeOut()},
+            popEnterTransition = {slideInHorizontally(initialOffsetX = { -1000 }) + fadeIn()},
+            popExitTransition = { slideOutHorizontally(targetOffsetX = { 1000 }) + fadeOut()}
+        ) {
+            val taskId = it.arguments?.getString("taskId") ?: "0"
+            DrawImageResultScreen(navController,taskId)
         }
     }
 }

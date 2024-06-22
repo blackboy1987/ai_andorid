@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.bootx.ai.ui.navigation.Destinations
-import com.bootx.ai.ui.viewmodal.LoginModel
+import com.bootx.ai.viewmodal.LoginModel
 import com.bootx.ai.util.CommonUtils
 import kotlinx.coroutines.launch
 

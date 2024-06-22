@@ -52,7 +52,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.bootx.ai.ui.components.WebView
 import com.bootx.ai.ui.components.dialog.BasicDialog
-import com.bootx.ai.ui.viewmodal.HomeModel
+import com.bootx.ai.viewmodal.HomeModel
 import com.bootx.ai.util.CommonUtils
 
 

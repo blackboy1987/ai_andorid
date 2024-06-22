@@ -44,8 +44,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.bootx.ai.ui.components.CountdownTimer
 import com.bootx.ai.ui.navigation.Destinations
-import com.bootx.ai.ui.viewmodal.HomeModel
-import com.bootx.ai.ui.viewmodal.LoginModel
+import com.bootx.ai.viewmodal.HomeModel
+import com.bootx.ai.viewmodal.LoginModel
 import com.bootx.ai.util.CommonUtils
 import com.bootx.ai.util.SharedPreferencesUtils
 import kotlinx.coroutines.launch
