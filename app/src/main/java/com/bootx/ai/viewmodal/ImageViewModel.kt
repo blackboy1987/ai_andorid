@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.bootx.ai.entity.CommonResponse
 import com.bootx.ai.entity.ImageAppEntity
 import com.bootx.ai.service.ImageService
 import com.bootx.ai.util.CommonUtils
@@ -29,7 +30,7 @@ class ImageViewModel : ViewModel() {
     }
 
 
-    suspend fun create(context: Context,prompt: String,style: String,size: String) {
+    suspend fun create(context: Context,prompt: String,style: String,size: String):CommonResponse {
         loading = true
         val res = imageService.create(
             SharedPreferencesUtils(context).getToken(),
@@ -45,6 +46,7 @@ class ImageViewModel : ViewModel() {
             CommonUtils.toast(context,res.msg)
         }
         loading = false
+        return res
     }
 
     suspend fun task(context: Context,taskId: String) {

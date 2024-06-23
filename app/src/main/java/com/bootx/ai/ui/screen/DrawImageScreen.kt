@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.bootx.ai.ui.navigation.Destinations
 import com.bootx.ai.viewmodal.ImageViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -243,7 +244,11 @@ fun DrawImageScreen(
                 enabled = !imageViewModel.loading,
                 modifier = Modifier.fillMaxWidth(), onClick = {
                 coroutineScope.launch {
-                    imageViewModel.create(context,prompt,style,size)
+                    val result = imageViewModel.create(context, prompt, style, size)
+                    if(result.code==0){
+                        navController.navigate(Destinations.DrawImageResultFrame.route+"/"+result.data)
+                    }
+
                 }
             }) {
                 Text(text = "生成")

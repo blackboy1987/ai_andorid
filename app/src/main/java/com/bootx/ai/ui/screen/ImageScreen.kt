@@ -32,8 +32,7 @@ import com.bootx.ai.viewmodal.ImageViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalLayoutApi::class, ExperimentalFoundationApi::class
+    ExperimentalMaterial3Api::class
 )
 @Composable
 fun ImageScreen(
