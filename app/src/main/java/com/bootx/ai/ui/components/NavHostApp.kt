@@ -31,7 +31,7 @@ fun NavHostApp() {
         composable(
             Destinations.MainFrame.route,
         ) {
-            WebViewScreen(navController,"http://localhost:5173/")
+            WebViewScreen(navController,"http://192.168.31.214:5173/")
         }
         composable(
             Destinations.HomeFrame.route,
