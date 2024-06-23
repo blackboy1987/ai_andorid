@@ -15,6 +15,7 @@ import com.bootx.ai.ui.screen.DrawImageResultScreen
 import com.bootx.ai.ui.screen.HomeScreen
 import com.bootx.ai.ui.screen.LoginCodeScreen
 import com.bootx.ai.ui.screen.LoginScreen
+import com.bootx.ai.ui.screen.VipScreen
 import com.bootx.ai.ui.screen.WebViewScreen
 import com.bootx.ai.ui.screen.WriteLogDetailScreen
 import com.bootx.ai.ui.screen.WriteLogScreen
@@ -31,7 +32,7 @@ fun NavHostApp() {
         composable(
             Destinations.MainFrame.route,
         ) {
-            WebViewScreen(navController,"http://192.168.31.214:5173/")
+            VipScreen(navController)
         }
         composable(
             Destinations.HomeFrame.route,
