@@ -1,5 +1,6 @@
 package com.bootx.ai.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
@@ -24,11 +24,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,26 +42,26 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.bootx.ai.entity.TextMessageEntity
-import com.bootx.ai.viewmodal.ChatViewModel
 import com.bootx.ai.util.CommonUtils
+import com.bootx.ai.util.EventStreamManager
+import com.bootx.ai.viewmodal.ChatViewModel
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
+import kotlin.math.log
 
 @Composable
 fun ChatScreen(
     navController: NavController,
     chatViewModel: ChatViewModel = viewModel()
 ) {
-    val messages by chatViewModel.messages.collectAsState()
+
+    var message by remember { mutableStateOf("") }
+    val gson = Gson()
+    var eventStreamManager by remember { mutableStateOf<EventStreamManager?>(null) }
     var content by remember {
         mutableStateOf("")
     }
-    var current by remember {
-        mutableStateOf(TextMessageEntity())
-    }
-    LaunchedEffect(chatViewModel.count) {
-        if(messages.isNotEmpty()){
-            current = messages[0]
-        }
-    }
+    val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
     Scaffold {
@@ -76,12 +75,7 @@ fun ChatScreen(
                     .padding(8.dp),
             ) {
                 item{
-                    Text(text = current.content)
-                }
-                if(messages.isNotEmpty()){
-                    items(messages){
-                        OtherContent(content = it.content)
-                    }
+                    OtherContent(content = message)
                 }
             }
             Row {
@@ -107,12 +101,22 @@ fun ChatScreen(
                 )
                 IconButton(onClick = {
                     if(content.isNotBlank()){
-                        chatViewModel.connect(content)
+                        if (eventStreamManager == null) {
+                            eventStreamManager = EventStreamManager("http://192.168.31.214:9902/api/member1/message?content=$content") { data ->
+                                scope.launch {
+                                    Log.e("eventStreamManager", "ChatScreen: $data", )
+                                    if(data.isNotEmpty()){
+                                        val textMessageEntity = gson.fromJson(data.replace("data:",""), TextMessageEntity::class.java)
+                                        message += textMessageEntity.content
+                                    }
+                                }
+                            }
+                            eventStreamManager?.start()
+                        }
                         content = ""
                     }else{
                         CommonUtils.toast(context,"请输入内容")
                     }
-
                     CommonUtils.hideKeyboard(context)
                     focusManager.clearFocus()
                 }) {

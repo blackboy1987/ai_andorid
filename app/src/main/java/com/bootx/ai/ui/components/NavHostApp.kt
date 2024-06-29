@@ -11,6 +11,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bootx.ai.ui.navigation.Destinations
+import com.bootx.ai.ui.screen.ChatScreen
+import com.bootx.ai.ui.screen.DemoScreen
 import com.bootx.ai.ui.screen.DrawImageResultScreen
 import com.bootx.ai.ui.screen.HomeScreen
 import com.bootx.ai.ui.screen.LoginCodeScreen
@@ -32,7 +34,7 @@ fun NavHostApp() {
         composable(
             Destinations.MainFrame.route,
         ) {
-            VipScreen(navController)
+            ChatScreen(navController)
         }
         composable(
             Destinations.HomeFrame.route,
