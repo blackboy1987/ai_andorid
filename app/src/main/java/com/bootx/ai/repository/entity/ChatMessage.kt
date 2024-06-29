@@ -4,10 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "config"
+    tableName = "ChatMessage"
 )
-data class ConfigEntity(
+data class ChatMessage(
     @PrimaryKey(autoGenerate = true)
     var id: Int=0,
-    var ticketMax: Int=100,
+    var content: String="",
+    val role: Int = 0,
 )
